@@ -40,11 +40,13 @@ module	MyIntToFp
 			end
 		end
 	endfunction
+	
 //================================================================================
 //	PARAMETERS
 
 	localparam Stages = Log2(InWidth);
 	localparam OutWidth	= 1+ExpWidth+ManWidth;	//sign+ExpWidth+ManWidth
+	
 //================================================================================
 //	PORTS
 	
@@ -55,6 +57,7 @@ module	MyIntToFp
 	
 	output	reg	[OutWidth-1:0]	OutData_o;
 	output	reg					OutDataVal_o;
+	
 //================================================================================
 //	REG/WIRE
 
@@ -70,6 +73,7 @@ module	MyIntToFp
 	wire	[ManWidth-1:0]	mantisa		=	scaledData[InWidth-2 -:ManWidth];
 	
 	wire	[(Stages+1)*InWidth-1:0]	dataArray;
+	
 //================================================================================
 //	ASSIGNMENTS
 
@@ -77,6 +81,7 @@ module	MyIntToFp
 	
 	assign	fpExp = ExpConst+InWidth-1-distance;
 	assign	fpOut = &distance ? {signR, 31'h0}:	{signR, fpExp,	mantisa};
+	
 //================================================================================
 //	CODING	
 
